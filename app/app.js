@@ -11,6 +11,7 @@ $(document).ready(function(){
   console.log ( "Número aleatorio " + numRandom)
 
   $( 'input' ).keyup(function( e ){
+    e.preventDefault()
     if( e.keyCode === 13 ){
       var value = $( 'input' ).val()
       var isANumber = isNaN( value )
@@ -29,13 +30,11 @@ $(document).ready(function(){
       }
 
       if( validate() ) {
-        $( ".user" ).addClass( "has-error" )
-        $( "p" ).css( "color", "red" )
+        $( "#explain" ).addClass( "bg-danger text-white rounded-lg" )
       }
 
       else {
-        $( ".user" ).removeClass( "has-error" )
-        $( "p" ).css( "color", "purple" )
+        $( "#explain" ).removeClass( "bg-danger text-white rounded-lg" )
         comparation = calculation( numRandom, value )
         $( "table" ).append( '<tr><td>' + value + '</td><td>' + comparation[0] + '</td><td>' + comparation[1] + '</td></tr>')
         clean()
@@ -58,14 +57,17 @@ $(document).ready(function(){
     }
 
     if( fijas === 4 ) {
-      $( '.result' ).removeClass( 'hide' )
-      alert( "ganaste!!" )
+      $( '#result' ).removeClass( 'hide' )
+      $( "#user" ).addClass( 'hide' )
     }
 
     return [ picas, fijas ]
   }
 
-  $( '.play' ).on( 'click', function(){
+  $( '#play' ).on( 'click', function(){
+    location.reload();
+  })
+  $( '#restart' ).on( 'click', function(){
     location.reload();
   })
 });
